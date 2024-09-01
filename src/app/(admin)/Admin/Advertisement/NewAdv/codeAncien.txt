@@ -1,0 +1,241 @@
+/* eslint-disable @next/next/no-img-element */
+"use client";
+import React, { useState, ChangeEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import style from '@/app/Components/admin/annonce/NewAdv.module.css';
+import { DragDropContext, Draggable, Droppable, DropResult } from "react-beautiful-dnd";
+import { IoIosImages } from 'react-icons/io';
+import { BiTrash } from 'react-icons/bi';
+
+const AdForm = () => {
+  const [availStart, setAvailStart] = useState<string>("");
+  const [availEnd, setAvailEnd] = useState<string>("");
+
+  const [FormLocation, setFormLocation] = useState({
+    title: "",
+    desc: "",
+    avail: [availStart, availEnd],
+    price: 0,
+    wifi: false,
+    pool: false,
+    animalSpace: false,
+    fireplace: false,
+    parking: false,
+    terrace: false,
+    airConditioned: false,
+    photos: [] as string[], 
+    bathrooms:0,
+    rooms:0,
+    guests:0
+  });
+
+  const handleChangeForm = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormLocation({ ...FormLocation, [name]: value });
+  };
+
+  const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === "availStart") {
+      setAvailStart(value);
+      setFormLocation({ ...FormLocation, avail: [value, availEnd] });
+    } else if (name === "availEnd") {
+      setAvailEnd(value);
+      setFormLocation({ ...FormLocation, avail: [availStart, value] });
+    }
+  };
+
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setFormLocation({ ...FormLocation, [name]: checked });
+  };
+
+  const [photos, setPhotos] = useState<File[]>([]);
+
+  const handleUploadPhotos = (e: ChangeEvent<HTMLInputElement>) => {
+    const newPhotos = Array.from(e.target.files || []);
+    const newPhotosURLs = newPhotos.map((photo: File) => URL.createObjectURL(photo));
+    setPhotos((prevPhotos) => [...prevPhotos, ...newPhotos]);
+    setFormLocation((prevState) => ({ ...prevState, photos: [...prevState.photos, ...newPhotosURLs] }));
+  };
+
+  const handleDragPhoto = (result: DropResult) => {
+    if (!result.destination) return;
+    const items = Array.from(photos);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    setPhotos(items);
+
+    const photoURLs = items.map((photo: File) => URL.createObjectURL(photo));
+    setFormLocation((prevState) => ({ ...prevState, photos: photoURLs }));
+  };
+
+  const handleRemovePhoto = (indexToRemove: number) => {
+    setPhotos((prevPhotos) => prevPhotos.filter((_, index) => index !== indexToRemove));
+    setFormLocation((prevState) => ({
+      ...prevState,
+      photos: prevState.photos.filter((_, index) => index !== indexToRemove)
+    }));
+  };
+
+
+  const router = useRouter()
+  const HandleSubmit = async (e:any)=>{
+    e.preventDefault();
+    const LogItem = {
+      ...FormLocation, 
+      title : FormLocation.title,
+      desc:FormLocation.desc,
+      img:FormLocation.photos,
+      RoomsNumber:Number(FormLocation.rooms),
+      bathRoomsNum:Number(FormLocation.bathrooms),
+      guestNumber:Number(FormLocation.guests),
+      Avail:FormLocation.avail,
+      Wifi:Boolean(FormLocation.wifi),
+      Pool:Boolean(FormLocation.pool),
+      AnimalSpace:Boolean(FormLocation.animalSpace),
+      fireplace:Boolean(FormLocation.fireplace),
+      Price: Number(FormLocation.price),
+      parking:Boolean(FormLocation.parking),
+      climatise:Boolean(FormLocation.airConditioned)
+    };
+
+    try {
+      const res = await fetch("http://localhost:3000/api/Logement/", {
+        method:'POST',
+        headers: {
+          'Content-Type' : 'application/json'
+        },
+
+        body:JSON.stringify(LogItem)
+      });
+
+      if(res.ok){
+        const data = await res.json();
+        console.log("data created successfuly", data)
+        router.push('/Admin/Dashboard');
+
+      }else{
+        const errorData = await res.json();
+        console.log("Data Not Created", errorData.message)
+      }
+    } catch (error:any) {
+      console.error("Erreur at Data Creation ", error)
+    }
+     
+  }
+
+  return (
+    <div className={style.adForm}>
+      <h1>New Logement Announcement</h1>
+      <form onSubmit={HandleSubmit}>
+        <label>Announcement Title</label>
+        <input
+          placeholder="Announcement title"
+          type="text"
+          name="title"
+          value={FormLocation.title}
+          onChange={handleChangeForm}
+          required
+        />
+
+        <label>Description:</label>
+        <textarea
+          name="desc"
+          rows={6}
+          value={FormLocation.desc}
+          onChange={handleChangeForm}
+          required
+        />
+
+        <label className="mb-2">Add Some photos of your place</label>
+        <DragDropContext onDragEnd={handleDragPhoto}>
+          <Droppable droppableId="photos" direction="horizontal">
+            {(provided) => (
+              <div className="p-5 border-white rounded-lg flex flex-col text-black" {...provided.droppableProps} ref={provided.innerRef}>
+                {photos.length < 1 && (
+                  <>
+                    <input id="image" type="file" style={{ display: "none", width: "200px" }} accept="image/*" onChange={handleUploadPhotos} multiple />
+                    <label htmlFor="image" className="alone">
+                      <div className=""><IoIosImages /></div>
+                      <p>Upload from your Device</p>
+                    </label>
+                  </>
+                )}
+                {photos.length >= 1 && (
+                  <>
+                    {photos.map((p, i) => {
+                      return (
+                        <Draggable key={i} draggableId={i.toString()} index={i}>
+                          {(provided) => (
+                            <div className="photos" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                              <img src={URL.createObjectURL(p)} alt="place" />
+                              <button type="button" onClick={() => handleRemovePhoto(i)}>
+                                <BiTrash />
+                              </button>
+                            </div>
+                          )}
+                        </Draggable>
+                      );
+                    })}
+                    <input id="image" type="file" style={{ display: "none" }} accept="image/*" onChange={handleUploadPhotos} multiple />
+                    <label htmlFor="image">
+                      <div className="p-2 "><IoIosImages /></div>
+                      <p>Upload from your Device</p>
+                    </label>
+                  </>
+                )}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+
+        <label>Number of Rooms</label>
+        <input type="number" name="rooms" value={FormLocation.rooms} onChange={handleChangeForm} />
+
+        <label>Number of Bathrooms</label>
+        <input type="number" name="bathrooms" value={FormLocation.bathrooms} onChange={handleChangeForm} />
+
+        <label>Maximum number of guests</label>
+        <input type="number" name="guests" value={FormLocation.guests} onChange={handleChangeForm} />
+
+        <label>
+          Available
+          <input className="p-3 rounded-lg m-3 text-black" type="date" name="availStart" placeholder="Start Date" value={availStart} onChange={handleDateChange} />
+          <input className="p-3 rounded-lg m-3 text-black" type="date" name="availEnd" placeholder="End Date" value={availEnd} onChange={handleDateChange} />
+        </label>
+
+        <label>Price:</label>
+        <input
+          type="number"
+          name="price"
+          placeholder="Price in dirhams"
+          value={FormLocation.price}
+          onChange={handleChangeForm}
+          required
+        />
+
+        <div className="mt-4 p-2 flex flex-col">
+          <label>Wifi</label>
+          <input type="checkbox" name="wifi" checked={FormLocation.wifi} onChange={handleCheckboxChange} />
+          <label>Pool</label>
+          <input type="checkbox" name="pool" checked={FormLocation.pool} onChange={handleCheckboxChange} />
+          <label>Animal Space</label>
+          <input type="checkbox" name="animalSpace" checked={FormLocation.animalSpace} onChange={handleCheckboxChange} />
+          <label>Fireplace</label>
+          <input type="checkbox" name="fireplace" checked={FormLocation.fireplace} onChange={handleCheckboxChange} />
+          <label>Parking</label>
+          <input type="checkbox" name="parking" checked={FormLocation.parking} onChange={handleCheckboxChange} />
+          <label>Terrace</label>
+          <input type="checkbox" name="terrace" checked={FormLocation.terrace} onChange={handleCheckboxChange} />
+          <label>Air-Conditioned</label>
+          <input type="checkbox" name="airConditioned" checked={FormLocation.airConditioned} onChange={handleCheckboxChange} />
+        </div>
+
+        <button type="submit" >Publish</button>
+      </form>
+    </div>
+  );
+};
+
+export default AdForm;

@@ -1,0 +1,58 @@
+.container{
+    margin-top: 20px;
+    background-color: var(--bgSoft);
+    padding: 20px;
+    border-radius: 10px;
+}
+.top {
+    align-items: center;
+}
+.title{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: 200;
+    color:white;
+}
+.img{
+    border-radius: 50%;
+    object-fit: cover;
+}
+.table{
+    width: 100%;
+    color: white;
+}
+.table td{
+padding: 10px;
+}
+
+.buttons{
+    display: flex;
+    gap: 10px;
+    }
+    
+    .btn{
+        padding: 5px 10px ;
+        
+        color:var(--text);
+        border: none;
+        cursor: pointer;
+    }
+    .view{
+        background: teal;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+    .view:hover{
+     background: transparent;
+     color: rgb(222, 220, 216);
+    }
+    
+    .del{
+        background: red;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+    .del:hover{
+        background: transparent;
+        color: rgb(222, 220, 216);
+       }

@@ -1,0 +1,61 @@
+.adForm {
+
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: var(--bgSoft);
+  }
+  
+  .adForm h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 22px;
+  }
+  
+  .adForm form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .adForm label {
+    margin-top: 10px;
+    font-weight: bold;
+    color: white ;
+  }
+  
+  .adForm input[type="text"], 
+  .adForm textarea,
+  .adForm select {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .adForm input[type="file"] {
+    margin-top: 5px;
+  }
+  .adForm input[type="number"] {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .adForm button {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #939185;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .adForm button:hover {
+    background-color: #45a049;
+  }
+  

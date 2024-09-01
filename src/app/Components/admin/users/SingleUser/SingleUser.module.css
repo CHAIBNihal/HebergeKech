@@ -1,0 +1,61 @@
+.container {
+    display: flex;
+    margin-top: 20px;
+    gap: 50px;
+  }
+  
+  .title {
+    padding: 40px;
+    position: relative;
+    font-size: 22px;
+    flex: 1;
+    color: var(--text);
+    height: 60%;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 5px 10px 18px #888888;
+  }
+  
+  .form {
+    flex: 3;
+    background-color: var(--bgSoft);
+    display: flex;
+    border-radius: 10px;
+    padding: 20px;
+    margin-right: 5px;
+    color: white;
+
+  }
+  
+  .titles {
+    flex: 1;
+    margin-right: 20px;
+    font-weight: 500;
+  }
+  
+  .titles p {
+    margin-bottom: 15px;
+  }
+  
+  .infos {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .infos p {
+    margin-bottom: 15px;
+  }
+
+  .infos button{
+    margin-top: 15px 20px;
+    padding: 10px;
+    border-radius: 10px;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .infos button:hover{
+    color: white;
+    background-color: transparent;
+  }

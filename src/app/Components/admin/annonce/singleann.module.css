@@ -1,0 +1,64 @@
+.container {
+    width: 100%;
+}
+
+.image {
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 20px;
+    background-color: var(--bgSoft);
+    align-items: center;
+    justify-content: center;
+    margin-left: 250px;
+}
+
+.infosContainer {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    background-color: var(--bgSoft);
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.infoItem {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.infoItem h1 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.infoItem p {
+    margin: 0;
+    font-size: 16px;
+    text-align: right;
+}
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.buttonValidate, .buttonDelete {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttonValidate {
+    background-color: #508D4E;
+    color: var(--text);
+}
+
+.buttonDelete {
+    background-color: #379777;
+    color: var(--text);
+}
