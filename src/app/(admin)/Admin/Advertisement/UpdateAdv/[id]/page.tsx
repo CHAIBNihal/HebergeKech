@@ -3,7 +3,7 @@
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import style from '@/app/Components/admin/annonce/NewAdv.module.css';
 import { IListLog } from '@/Models/Annonces/ListingLog';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import axios from "axios";
 import CustomFileSelector from "@/app/Components/Images/CustomFileSelector";
 import classNames from "classnames";
@@ -28,7 +28,7 @@ const UpdateAdv = () => {
   const [availStart, setAvailStart] = useState<string>("");
   const [availEnd, setAvailEnd] = useState<string>("");
   const [img, setImg] = useState<File[]>([]);
-  const [uploading, setUploading] = useState(false);
+  const route = useRouter()
   const [formData, setFormData] = useState({
     title: "",
     desc: "",
@@ -154,7 +154,8 @@ const UpdateAdv = () => {
 
             // Réinitialiser le formulaire ou afficher un message de succès
             setFormData(result);
-            console.log(formData)
+            route.push(`/Admin/Advertisement/${id}`)
+            
         } else {
             // Gérer les erreurs
             console.error("Erreur lors de la mise à jour :", result.message);
@@ -170,7 +171,7 @@ const UpdateAdv = () => {
 
   return (
     <div className={style.adForm}>
-      <h1>Update Your Logement Annoucement </h1>
+      <h1>Update Your Accommodation</h1>
       <form onSubmit={handleSubmit}>
         <label>Annoucement Title</label>
         <input
@@ -198,7 +199,7 @@ const UpdateAdv = () => {
             type="date"
             name="availStart"
             placeholder="Start Date"
-            value={formData.avail[0]}
+            value={availStart}
             onChange={handleDateChange}
           />
           <input
@@ -206,7 +207,7 @@ const UpdateAdv = () => {
             type="date"
             name="availEnd"
             placeholder="End Date"
-            value={formData.avail[0]}
+            value={availEnd}
 
             onChange={handleDateChange}
           />

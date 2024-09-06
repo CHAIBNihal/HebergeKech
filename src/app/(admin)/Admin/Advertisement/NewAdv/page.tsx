@@ -126,7 +126,7 @@ const AdForm = () => {
 console.log(FormLocation.img)
   return (
     <div className={style.adForm}>
-      <h1>New Logement Announcement</h1>
+      <h1>New Accommodation</h1>
       <form onSubmit={HandleSubmit}>
         <label>Announcement Title</label>
         <input

@@ -46,7 +46,7 @@ const ActItem: React.FC<AnnInterface> = ({ id }) => {
       });
 
       if (response.ok) {
-        router.push('/Activities');
+        router.push('/SuccesBooking');
       } else {
         console.error('Erreur lors de la réservation');
       }

@@ -96,7 +96,7 @@ const query = searchParams.q ? decodeURIComponent(searchParams.q) : "";
       <div className={styles.top}>
         <Search placeholder='search for an annoucement ....'   />
       </div>
-      <h2 className={styles.title}>All Logement Annonces </h2>
+      <h2 className={styles.title}>All Accommodation Annonces </h2>
       {isClient && (
         <table className={styles.table}>
           <thead>

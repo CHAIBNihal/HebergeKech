@@ -1,9 +1,8 @@
 import dbConn from "../../../../../Config/dbConnect";
 import Client from "@/Models/Utilisateurs/user";
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt"; // Utilisé pour récupérer le token
 
-
+dbConn()
 
 export async function DELETE(req:Request){
     try {

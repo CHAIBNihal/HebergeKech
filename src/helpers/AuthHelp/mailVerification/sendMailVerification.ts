@@ -7,7 +7,7 @@ export async function sendVerificationEmail
 {
 try {
     await resend.emails.send({
-        from: 'dev@hiteshchoudhary.com',
+        from: 'dev@kechheberge.ma',
         to: email,
         subject: "User Verification ",
         react:NotionMagicLinkEmail({fullName, otp:verifyCode})

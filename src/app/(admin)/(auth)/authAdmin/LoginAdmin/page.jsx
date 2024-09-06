@@ -9,7 +9,8 @@ import { useRouter } from 'next/navigation';
 
 const SignIn = () => {
   const router = useRouter();
-
+  
+  const [errorMessage, setErrorMessage] = useState('');
   const handleSubmit  = async (data) => {
 
     const resData = await signIn("admin-login", {
@@ -25,12 +26,14 @@ console.log(resData.error);
       resData.status === 403
     ) {
       console.log("Invalid Credentials!");
-      alert('Invalid Credentials!');
+      setErrorMessage('Invalid Credentials!')
+     
     } else if (resData.status === 500) {
       console.log("Server error!");
-      alert('Server error!');
+      setErrorMessage('Server error!');
     } else {
-      alert('Login successful!');
+      
+      
       router.push('/Admin/Dashboard');
       console.log(resData);
     }
@@ -46,6 +49,7 @@ console.log(resData.error);
         });
       }}>
         <h1>Login</h1>
+        {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
         <div className="input-box">
           <input type="text" name="email" placeholder="email@gmail.com" required />
           <MdOutlineAlternateEmail className="icon" />

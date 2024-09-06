@@ -63,7 +63,7 @@ const ListRoomPage: React.FC<ListRoomPageProps> = ({ id }) => {
         body: JSON.stringify({ ...formData, LogId, clientId, email, fullName }),
       });
       if (response.ok) {
-        router.push('/Rooms');
+        router.push('/SuccesBooking');
       } else {
         console.error('Erreur lors de la réservation');
       }

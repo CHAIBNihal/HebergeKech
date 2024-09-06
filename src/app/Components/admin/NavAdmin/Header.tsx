@@ -17,7 +17,9 @@ const Header = () => {
         </div>
 
         <div className={style.icons}>
+          <a href="/Admin/Message">
           <MdOutlineChat size={20}/>
+          </a>
           <MdNotifications size={20}/>
           <button >
             <a href="/api/auth/signout" onClick={(e)=>{e.preventDefault();

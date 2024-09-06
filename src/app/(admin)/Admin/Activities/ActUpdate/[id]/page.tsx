@@ -7,7 +7,7 @@ import axios from "axios";
 import CustomFileSelector from "@/app/Components/Images/CustomFileSelector";
 import classNames from "classnames";
 import ImagePreview from "@/app/Components/Images/ImagePreview";
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 const UpdateActivitie = () => {
 
@@ -17,6 +17,7 @@ const {id} = useParams()
     const [availEnd, setAvailEnd] = useState<string>("");
     const [img, setImg] = useState<File[]>([]);
     const [uploading, setUploading] = useState(false);
+    const router = useRouter()
     const [formData, setFormData] = useState({
       title: "",
       desc: "",
@@ -120,7 +121,7 @@ const {id} = useParams()
 
                 // Réinitialiser le formulaire ou afficher un message de succès
                 setFormData(result);
-                console.log(formData)
+                router.push(`/Admin/Activities/${id}`)
             } else {
                 // Gérer les erreurs
                 console.error("Erreur lors de la mise à jour :", result.message);
@@ -132,7 +133,7 @@ const {id} = useParams()
 
     return (
       <div className={style.adForm}>
-        <h1>Edit Your activitie </h1>
+        <h1>Edit your activitie </h1>
         <form onSubmit={handleSubmit}>
           <label>Title :</label>
           <input

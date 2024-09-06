@@ -13,7 +13,8 @@ export async function middleware(req:NextRequest) {
   } else if (pathname.startsWith("/profile")||
    pathname.startsWith('/BookingHistory') ||
    pathname.startsWith('/Rooms') ||
-   pathname.startsWith('/Activities')
+   pathname.startsWith('/Activities') ||
+   pathname.startsWith('/SuccesBooking')
   ) {
     if (token?.role !== "user") {
       return NextResponse.redirect(new URL("/login", req.url));
@@ -29,6 +30,7 @@ export const config = {
     "/profile/:path*", 
     "/Rooms/:path*", 
     "/BookingHistory",
-    "/Activities/:path*"
+    "/Activities/:path*", 
+    "/SuccesBooking"
   ],
 };
