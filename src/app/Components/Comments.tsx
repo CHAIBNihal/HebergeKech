@@ -114,7 +114,9 @@ const Comments: React.FC = () => {
                 handleCancel(comment._id as string)
             }}
             >
-            <AiOutlineDelete />
+                 {clientId === comment.clientId?._id ? <AiOutlineDelete /> :  ""}
+               
+            
             </button>
         </div>
     ))

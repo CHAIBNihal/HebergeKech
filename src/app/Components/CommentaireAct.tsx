@@ -58,6 +58,7 @@ const CommentaireAct: React.FC = () => {
           console.error('Error cancelling comment:', error);
         }
       };
+      console.log("Client comment id :", comments.map(c=>c.clientId?._id))
     useEffect(() => {
         const fetchComments = async () => {
             try {
@@ -115,7 +116,8 @@ const CommentaireAct: React.FC = () => {
                 handleCancel(comment._id as string)
             }}
             >
-            <AiOutlineDelete />
+                {clientId === comment.clientId?._id ? <AiOutlineDelete /> :  ""}
+            
             </button>
         </div>
     ))

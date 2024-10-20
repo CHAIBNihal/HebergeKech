@@ -4,7 +4,7 @@ import UserCards from "@/app/Components/admin/cards/userCards";
 import style from "../../../Components/admin/dash.module.css";
 import RightSide from "../../../Components/admin/RightSide/RightSide"
 import Transaction from "../../../Components/admin/transaction/Transaction"
-import Chart from "../../../Components/admin/Chart/Chart"
+
 const Home = () => {
   return (
     <div className={style.wrapper}>
@@ -17,7 +17,7 @@ const Home = () => {
           <Transaction />
         </div>
 
-        <Chart />
+        
       </div>
       <div className={style.side}>
         <RightSide />

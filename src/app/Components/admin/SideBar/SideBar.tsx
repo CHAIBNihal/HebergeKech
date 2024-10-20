@@ -1,8 +1,9 @@
-
+'use client'
 import React from 'react'
 import styles from "./sidebar.module.css"
 import { MdDashboard, MdSupervisedUserCircle } from 'react-icons/md'
 import MenuLink from './menuLink/menuLink'
+import { useSession } from 'next-auth/react';
 
 interface MenuItem {
   title: string;
@@ -41,7 +42,7 @@ const menuItem: MenuCategory[] = [
         icon: <MdDashboard />
       },
       {
-        title: "Annonces",
+        title: "Accommodation ",
         path: "/Admin/Advertisement",
         icon: <MdDashboard />
       },
@@ -58,10 +59,12 @@ const menuItem: MenuCategory[] = [
   }
 ];
 const SideBar = () => {
+  const { data } = useSession();
+  const userName = data?.user.fullName
   return (
     <div className={styles.container}>
       <div className={styles.userDetail}>
-        <div className={styles.username}>Abdelmajid Rabie</div> 
+        <div className={styles.username}>{userName}</div> 
         <div className={styles.userTitle}>Administrator</div>
       </div>
       <ul className={styles.list}>

@@ -23,6 +23,8 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(admin)/(auth)/authAdmin/LoginAdmin/page.jsx", "src/app/(admin)/(auth)/authAdmin/RegisterAdmin/page.jsx", "src/app/(admin)/Admin/upload/page.tsx", "src/app/Components/img-Upl.jsx", "src/app/(client)/(auth)/login/page.jsx", "src/app/(client)/(auth)/Register/page.jsx"],
+
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(admin)/(auth)/authAdmin/LoginAdmin/page.jsx", "src/app/(admin)/(auth)/authAdmin/RegisterAdmin/page.jsx", "src/app/(admin)/Admin/upload/page.tsx", "src/app/Components/img-Upl.jsx", "src/app/(client)/(auth)/login/page.jsx", "src/app/(client)/(auth)/Register/page.jsx", "src/jspdf-autotable.d.ts"],
   "exclude": ["node_modules"]
+  
 }

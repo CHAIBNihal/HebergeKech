@@ -91,7 +91,7 @@ const ActItem: React.FC<AnnInterface> = ({ id }) => {
 
   return (
     <div className="container mx-auto px-4 mt-5 mb-5">
-      <h1 className="text-2xl font-semibold mt-3">{Act?.title}</h1>
+      <h1 className="text-2xl font-semibold mt-3 mb-2">{Act?.title}</h1>
       <div className="flex flex-col md:flex-row">
         {/*Images */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:w-2/3">

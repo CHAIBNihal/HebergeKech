@@ -83,14 +83,14 @@ const id = data?.user._id;
               onClick={handleEditProfile} 
               className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition duration-300"
             >
-              Modifier le profil
+              Edite profile
             </button>
             <button 
               type="button"
               onClick={handleGoToDashboard} 
               className="px-4 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700 transition duration-300"
             >
-              Revenir au dashboard
+              Go to dashboard
             </button>
           </div>
           {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
